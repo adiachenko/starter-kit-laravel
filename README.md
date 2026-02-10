@@ -44,21 +44,6 @@ If you use [Fork](https://git-fork.com/) and hooks misbehave, see [this issue](h
 | `composer coverage`      | Run tests with local coverage (`pest --coverage`). |
 | `composer coverage:herd` | Run coverage via Laravel Herd tooling.             |
 
-## Git Hooks
-
-Install project hooks:
-
-```bash
-sh install-git-hooks.sh
-```
-
-Installed hooks:
-
-- `pre-commit` runs `composer format`
-- `pre-push` runs `composer analyse`
-
-If you use Fork and hooks misbehave, see [this issue](https://github.com/fork-dev/Tracker/issues/996).
-
 ## PhpStorm Setup (Optional)
 
 Recommended setup for consistent formatting:
