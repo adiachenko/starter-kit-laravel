@@ -2,12 +2,12 @@
 
 ## What's Different from the Official Laravel Starter
 
-- PHP `>=8.4` baseline with strict types (`declare(strict_types=1)`) enforced by Pint.
+- PHP `>=8.4` baseline with `declare(strict_types=1)` enforced by Pint.
 - The default boilerplate is lean and backend/API-friendly rather than frontend-scaffold-heavy.
-- Models are unguarded by default because we trust our validation way more than our memory to keep $fillable in sync.😆
-- `AppServiceProvider` comes preconfigured with useful safeguards like immutable dates and stricter Eloquent behavior.
+- `AppServiceProvider` comes preconfigured with useful safeguards like immutable dates and stricter Eloquent.
+- Models are unguarded by default because I trust my validation more than my memory to keep $fillable in sync.
 - Tooling is already wired: Pest (parallel tests), PHPStan + Larastan at max level, and Rector for refactors.
-- Formatting is consistent out of the box: Pint for PHP and Prettier (including Blade) for everything else, all under `composer format` (also supported by PhpStorm/VSCode/Cursor, see below).
+- Formatting is consistent out of the box: Pint for PHP and Prettier for everything else.
 
 ## Installation
 
