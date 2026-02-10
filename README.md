@@ -1,8 +1,15 @@
 # Laravel Starter Kit
 
-## Installation
+## What's Different from the Official Laravel Starter
 
-> Requires PHP 8.4+
+- PHP `>=8.4` baseline with strict types (`declare(strict_types=1)`) enforced by Pint.
+- The default boilerplate is lean and backend/API-friendly rather than frontend-scaffold-heavy.
+- Models are unguarded by default because we trust our validation way more than our memory to keep $fillable in sync.😆
+- `AppServiceProvider` comes preconfigured with useful safeguards like immutable dates and stricter Eloquent behavior.
+- Tooling is already wired: Pest (parallel tests), PHPStan + Larastan at max level, and Rector for refactors.
+- Formatting is consistent out of the box: Pint for PHP and Prettier (including Blade) for everything else, all under `composer format` (also supported by PhpStorm/VSCode/Cursor, see below).
+
+## Installation
 
 Create application (replace `example-app` with desired project name):
 
@@ -44,7 +51,7 @@ If you use [Fork](https://git-fork.com/) and hooks misbehave, see [this issue](h
 | `composer coverage`      | Run tests with local coverage (`pest --coverage`). |
 | `composer coverage:herd` | Run coverage via Laravel Herd tooling.             |
 
-## PhpStorm Setup (Optional)
+## PhpStorm Setup
 
 Recommended setup for consistent formatting:
 
@@ -53,3 +60,7 @@ Recommended setup for consistent formatting:
 - `Settings | PHP | Quality Tools`: set Laravel Pint as external formatter
 - `Settings | Tools | Actions on Save`: enable reformat on save
 - `Settings | Languages & Frameworks | JavaScript | Prettier`: use automatic config, enable "Run on save", and prefer Prettier config. Include `md` in Prettier file extensions.
+
+## VSCode/Cursor Setup
+
+All formatting settings for VSCode and Cursor are included under `.vscode/` folder and should be picked up automatiically by the editor as long as you install suggested extensions.
