@@ -21,8 +21,10 @@ AGENTS.local.md
 CLAUDE.local.md
 
 # Editors
-/.idea
-/.vscode
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
 
 # Caches
 .phpunit.cache/
