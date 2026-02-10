@@ -1,0 +1,39 @@
+# MacOS
+.DS_Store
+Thumbs.db
+
+# Composer
+vendor/
+/auth.json
+
+# NPM
+node_modules/
+
+# Environment
+.env
+.env.backup
+.env.production
+
+# Agents
+.claude/
+.codex/
+AGENTS.local.md
+CLAUDE.local.md
+
+# Editors
+/.idea
+/.vscode
+
+# Caches
+.phpunit.cache/
+.php-cs-fixer.cache
+
+# Log files
+*.log
+
+# Assets
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/storage/pail
