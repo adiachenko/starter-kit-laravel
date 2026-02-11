@@ -14,12 +14,6 @@ node_modules/
 .env.backup
 .env.production
 
-# Agents
-.claude/
-.codex/
-AGENTS.local.md
-CLAUDE.local.md
-
 # Editors
 .idea/
 .vscode/*
@@ -39,3 +33,18 @@ CLAUDE.local.md
 /public/storage
 /storage/*.key
 /storage/pail
+
+# Agents (share guidelines and skills via .ai directory in Laravel Boost instead)
+.agents/
+.claude/
+.codex/
+.cursor/
+.gemini/
+.github/skills/
+.junie/
+.mcp.json
+boost.json
+opencode.json
+AGENTS.md
+CLAUDE.md
+GEMINI.md
