@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('application returns a healthcheck response', function (): void {
+test('application returns response from the home endpoint', function (): void {
     $response = $this->getJson('/');
 
     $response->assertStatus(200);

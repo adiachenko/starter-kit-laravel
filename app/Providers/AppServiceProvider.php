@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Sleep;
 
@@ -33,8 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Model::preventAccessingMissingAttributes();
 
         if (App::environment('testing')) {
-            Sleep::fake();
-            Http::preventStrayRequests();
+            Sleep::fake(); // if a test needs real waiting, opt out in specific test with Sleep::fake(false)
         }
     }
 }
