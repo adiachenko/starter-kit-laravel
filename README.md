@@ -5,10 +5,10 @@
 - PHP `>=8.4` baseline with `declare(strict_types=1)` enforced by Pint.
 - The default boilerplate is lean and backend/API-friendly rather than frontend-scaffold-heavy.
 - `AppServiceProvider` comes preconfigured with useful safeguards like immutable dates and stricter Eloquent.
-- Models are unguarded by default because I trust my validation more than my memory to keep $fillable in sync.
+- Models are unguarded by default because we trust our validation more than our patience to keep `$fillable` in sync.
 - Tooling is already wired: Pest (parallel tests), PHPStan + Larastan at max level, and Rector for refactors.
-- Better testing defaults with opinionated conventions and separate test suite for external dependencies.
-- Laravel Boost is included during setup and appropriate .gitignore rules for it are supplied by default.
+- Improved testing setup with clear conventions and a dedicated suite for external dependencies.
+- Laravel Boost configuration prompts are included during setup, and sensible `.gitignore` rules for Boost are preconfigured.
 - SQLite is set as the default database, offering a clean, minimal starting point that you can easily customize for your preferred database setup.
 - Formatting is consistent out of the box: Pint for PHP and Prettier for everything else.
 
@@ -54,6 +54,20 @@ If you use [Fork](https://git-fork.com/) and hooks misbehave, see [this issue](h
 | `composer coverage`      | Run tests with local coverage (`pest --coverage`).    |
 | `composer coverage:herd` | Run coverage via Laravel Herd tooling.                |
 
+## Tests Structure and Conventions
+
+The tests are organized into three test suites:
+
+- `tests/Unit`: Tests individual classes that align with the `app/` namespace structure. These tests focus on a specific class, but do not require strict isolation. Using database or involving related classes is acceptable.
+- `tests/Feature`: Validates broader application behavior through HTTP endpoints, console commands, or message handlers. Feature tests should reflect your application's APIs.
+- `tests/External`: Tests interactions with external (third-party) services, organized by provider or domain.
+
+In most cases, start with `Feature` tests. Use `Unit` tests when you need to validate complex underlying logic in individual classes. Reserve `External` tests for checks on third-party services that cannot or should not be mocked.
+
+Running `composer test` executes only the `Unit` and `Feature` suites. To run the external tests, use `composer test:external`.
+
+Test descriptions should follow the pattern: `<verb> <observable outcome> [when <condition>] [for <actor>]`.
+
 ## Additional Folders
 
 Not strictly Laravel-official, but enforced in the starter kit as common practices in the Laravel community:
@@ -62,18 +76,6 @@ Not strictly Laravel-official, but enforced in the starter kit as common practic
 - `app/Data`: data transfer objects (DTOs) for encapsulating data.
 - `app/Enums`: self-explanatory.
 - `app/Services`: for calling external services.
-
-## Tests Structure and Conventions
-
-The tests are organized into three test suites:
-
-- `tests/Unit`: Tests individual classes that align with the `app/` namespace structure. These tests focus on a specific class, but do not require strict isolation—using the real database or involving related classes is acceptable.
-- `tests/Feature`: Validates broader application behavior through entry points like HTTP endpoints, console commands, or message handlers. Feature tests should reflect your application's APIs or interfaces.
-- `tests/External`: Tests interactions with actual external services (without using mocking), organized by provider or domain.
-
-Running `composer test` executes only the `Unit` and `Feature` suites. To run the external tests, use `composer test:external`.
-
-In most cases, write `Feature` tests. Use `Unit` tests when you need to validate complex or critical individual classes. Reserve `External` tests for verifying integrations with third-party dependencies that you do not own, following the principle of not mocking what you don't own when possible. This ensures tests reflect real interactions with external systems rather than relying on mocks. Test descriptions should follow the pattern: `<verb> <observable outcome> [when <condition>] [for <actor>]`.
 
 ## PhpStorm Setup
 
