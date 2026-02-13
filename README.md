@@ -8,7 +8,7 @@
 - Models are unguarded by default because we trust our validation more than our patience to keep `$fillable` in sync.
 - Tooling is already wired: Pest (parallel tests), PHPStan + Larastan at max level, and Rector for refactors.
 - Improved testing setup with clear conventions and a dedicated suite for external dependencies.
-- Laravel Boost configuration prompts are included during setup, and sensible `.gitignore` rules for Boost are preconfigured.
+- Laravel Boost configuration prompts are included during setup, and sensible `.gitignore` rules for Boost are preconfigured. Comes bundled with .ai directory as a starting point for your own AI overrides.
 - SQLite is set as the default database, offering a clean, minimal starting point that you can easily customize for your preferred database setup.
 - Formatting is consistent out of the box: Pint for PHP and Prettier for everything else.
 
@@ -59,7 +59,7 @@ If you use [Fork](https://git-fork.com/) and hooks misbehave, see [this issue](h
 The tests are organized into three test suites:
 
 - `tests/Unit`: Tests individual classes that align with the `app/` namespace structure. These tests focus on a specific class, but do not require strict isolation. Using database or involving related classes is acceptable.
-- `tests/Feature`: Validates broader application behavior through HTTP endpoints, console commands, or message handlers. Feature tests should reflect your application's APIs.
+- `tests/Feature`: Validates broader application behavior through HTTP endpoints (`Web`/`Api`), console commands (`Console`), or message handlers. Feature tests should reflect your application's APIs.
 - `tests/External`: Tests interactions with external (third-party) services, organized by provider or domain.
 
 In most cases, start with `Feature` tests. Use `Unit` tests when you need to validate complex underlying logic in individual classes. Reserve `External` tests for checks on third-party services that cannot or should not be mocked.
