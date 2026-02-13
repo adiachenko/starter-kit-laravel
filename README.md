@@ -7,7 +7,7 @@
 - `AppServiceProvider` comes preconfigured with useful safeguards like immutable dates and stricter Eloquent.
 - Models are unguarded by default because I trust my validation more than my memory to keep $fillable in sync.
 - Tooling is already wired: Pest (parallel tests), PHPStan + Larastan at max level, and Rector for refactors.
-- Better testing defaults with clear conventions and separate test suite for external dependencies.
+- Better testing defaults with opinionated conventions and separate test suite for external dependencies.
 - Laravel Boost is included during setup and appropriate .gitignore rules for it are supplied by default.
 - SQLite is set as the default database, offering a clean, minimal starting point that you can easily customize for your preferred database setup.
 - Formatting is consistent out of the box: Pint for PHP and Prettier for everything else.
@@ -56,9 +56,10 @@ If you use [Fork](https://git-fork.com/) and hooks misbehave, see [this issue](h
 
 ## Additional Folders
 
-Not strictly Laravel-official, but enforced as a common practice by the community:
+Not strictly Laravel-official, but enforced in the starter kit as common practices in the Laravel community:
 
 - `app/Actions`: invokable classes for encapsulating business logic.
+- `app/Data`: data transfer objects (DTOs) for encapsulating data.
 - `app/Enums`: self-explanatory.
 - `app/Services`: for calling external services.
 
@@ -66,13 +67,13 @@ Not strictly Laravel-official, but enforced as a common practice by the communit
 
 The tests are organized into three test suites:
 
-- `tests/Unit`: Focuses on individual classes that reflect the structure of the `app/` namespace. These tests target specific classes directly. While they focus on single classes, they are not strictly isolated. Feel free to work with a real database or trigger logic that calls other classes. For example, `Tests\Unit\Models\UserTest` should test the `User` model.
-- `tests/Feature`: Covers broader application behavior from entry points such as HTTP endpoints, console commands, or message handlers. Tests here should mirror your communication interfaces. For example, `Tests\Feature\Http\StorePostTest` should call `StorePostController` or `store` method of `PostController`.
-- `tests/External`: Interacts with real external services, organized by provider or domain (e.g., `Stripe`, `Ipinfo`, `Shippo`).
+- `tests/Unit`: Tests individual classes that align with the `app/` namespace structure. These tests focus on a specific class, but do not require strict isolation—using the real database or involving related classes is acceptable.
+- `tests/Feature`: Validates broader application behavior through entry points like HTTP endpoints, console commands, or message handlers. Feature tests should reflect your application's APIs or interfaces.
+- `tests/External`: Tests interactions with actual external services (without using mocking), organized by provider or domain.
 
-By default, running `composer test` executes the `Unit` and `Feature` suites. To run the external tests, use `composer test:external`.
+Running `composer test` executes only the `Unit` and `Feature` suites. To run the external tests, use `composer test:external`.
 
-Favor `Feature` tests for most scenarios. Select `Unit` tests when validating complex or critical individual classes, and use `External` tests when verifying integrations with third-party dependencies that cannot be mocked.
+In most cases, write `Feature` tests. Use `Unit` tests when you need to validate complex or critical individual classes. Reserve `External` tests for verifying integrations with third-party dependencies that you do not own, following the principle of not mocking what you don't own when possible. This ensures tests reflect real interactions with external systems rather than relying on mocks. Test descriptions should follow the pattern: `<verb> <observable outcome> [when <condition>] [for <actor>]`.
 
 ## PhpStorm Setup
 

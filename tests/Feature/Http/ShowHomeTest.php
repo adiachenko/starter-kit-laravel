@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-test('application returns response from the home endpoint', function (): void {
+test('has home', function (): void {
     $response = $this->getJson('/');
 
     $response->assertStatus(200);
