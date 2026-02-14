@@ -33,6 +33,10 @@ Example:
 test('returns validation errors when required registration fields are missing', function () {});
 ```
 
+## Prefer explicit assertions over chained helpers (debuggability)
+
+Prefer explicit, single-purpose assertions (one per line) over chained convenience helpers in tests.
+
 ## Test Execution
 
 Run the smallest test scope that meaningfully proves the change, then expand scope when risk increases.
