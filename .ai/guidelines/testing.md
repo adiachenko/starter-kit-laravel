@@ -1,60 +1,47 @@
 # Testing Guidelines
 
-## Implementation Order
+## Approach
 
-Start implementation with a test. Write a failing test that describes the desired behavior, then implement the code to make it pass.
+Start with a failing test, then implement code to make it pass.
 
-## Test Suite Selection
+## Test Suites
 
-Choose the test suite by intent:
+- `tests/Feature`: default. Test from the outside in by calling endpoints. Organize in subfolders by interface: `Web`, `Api`, `Mcp`, `Console`, etc.
+- `tests/Unit`: tests for individual classes, mirroring `app/` namespaces. Strict isolation NOT required.
+- `tests/External`: real interactions with external services (no mocking), organized by provider.
 
-- `tests/Feature`: default starting point for validating application behavior through HTTP endpoints (`Web`/`Api`), console commands (`Console`), or message handlers.
-- `tests/Unit`: focused tests for individual classes aligned with `app/` namespaces; strict isolation is not required.
-- `tests/External`: third-party integration tests, organized by provider or domain (favor existing project conventions).
+Unmocked external calls belong in `tests/External` only.
 
-Do not place unmocked third-party integration checks in `Feature` or `Unit`; keep them in `tests/External`.
+## File Naming
 
-## Test File Naming
+Always use `Test.php` suffix.
 
-- Always use the `Test.php` suffix.
-- **Unit tests**: Mirror the class under test. Use `{ClassName}Test.php` (e.g. `UserTest.php`, `CreateUserJobTest.php`).
-- **Feature tests**: Mirror the controller (controller action) or command name. Use `{ActionOrCommandName}Test.php` (e.g. `StoreUserTest.php`, `HealthcheckCommandTest.php`). Each controller action must have a separate test file.
-- **External tests**: Use descriptive names that reflect what is being tested (e.g. `StripeWebhookTest.php`).
+- **Unit**: mirror the class — `{ClassName}Test.php` (e.g. `UserTest.php`, `CreateUserJobTest.php`).
+- **Feature**: mirror the controller action or command — `{ActionOrCommandName}Test.php` (e.g. `StoreUserTest.php`, `HealthcheckCommandTest.php`). One test file per controller action.
+- **External**: descriptive names reflecting what's tested (e.g. `StripeWebhookTest.php`).
 
-## Test Description Naming
+## Test Descriptions
 
-Test descriptions should follow:
-
-`<present-tense verb> <observable outcome> [when <condition>] [for <actor>]`
-
-Example:
+Pattern: `<present-tense verb> <observable outcome> [when <condition>] [for <actor>]`
 
 ```php
 test('returns validation errors when required registration fields are missing', function () {});
 ```
 
-## Prefer explicit assertions over chained helpers (debuggability)
+## Assertions
 
-Prefer explicit, single-purpose assertions (one per line) over chained convenience helpers in tests.
+Prefer explicit, single-purpose assertions (one per line) over chained convenience helpers.
 
-## Test Execution
+## Execution
 
-Run the smallest test scope that meaningfully proves the change, then expand scope when risk increases.
+Run the smallest scope that proves the change, expand when risk increases.
 
 ```bash
-# Filter by test description (regex)
 php artisan test --filter="hides sensitive attributes"
-php artisan test --filter="has home"
-
-# Single file
 php artisan test tests/Unit/Models/UserTest.php
-
-# Test suite
 php artisan test --testsuite=Unit
-php artisan test --testsuite=Feature
-php artisan test --testsuite=External
 ```
 
 ## Verification
 
-After making changes, run `composer format` and `composer analyse` before finalizing.
+After changes, run `composer format` and `composer analyse` before finalizing.

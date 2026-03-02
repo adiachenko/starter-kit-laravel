@@ -44,36 +44,36 @@ If you use [Fork](https://git-fork.com/) and hooks misbehave, see [this issue](h
 
 ## Development Commands
 
-| Command                  | Purpose                                               |
-| ------------------------ | ----------------------------------------------------- |
-| `composer test`          | Run the test suite (`pest --compact --parallel`).     |
-| `composer test:external` | Run the external test suite (`--testsuite=External`). |
-| `composer format`        | Run Laravel Pint and Prettier formatting.             |
-| `composer analyse`       | Run static analysis (`phpstan`).                      |
-| `composer refactor`      | Apply Rector refactors.                               |
-| `composer coverage`      | Run tests with local coverage (`pest --coverage`).    |
-| `composer coverage:herd` | Run coverage via Laravel Herd tooling.                |
+| Command                  | Purpose                                                         |
+| ------------------------ | --------------------------------------------------------------- |
+| `composer test`          | Run Feature and Unit test suites (`pest --compact --parallel`). |
+| `composer test:external` | Run the External test suite (`--testsuite=External`).           |
+| `composer format`        | Run Laravel Pint and Prettier formatting.                       |
+| `composer analyse`       | Run static analysis (`phpstan`).                                |
+| `composer refactor`      | Apply Rector refactors.                                         |
+| `composer coverage`      | Run tests with local coverage (`pest --coverage`).              |
+| `composer coverage:herd` | Run coverage via Laravel Herd tooling.                          |
 
 ## Tests Structure and Conventions
 
 The tests are organized into three test suites:
 
-- `tests/Unit`: Tests individual classes that align with the `app/` namespace structure. These tests focus on a specific class, but do not require strict isolation. Using database or involving related classes is acceptable.
-- `tests/Feature`: Validates broader application behavior through HTTP endpoints (`Web`/`Api`), console commands (`Console`), or message handlers. Feature tests should reflect your application's APIs.
-- `tests/External`: Tests interactions with external (third-party) services, organized by provider or domain.
+- `tests/Feature`: default starting point for validating application behavior. Test **from the outside in** by calling endpoints directly. Organize feature tests in subfolders by interface type: `Web`, `Api`, or `Mcp` for HTTP endpoints, `Console` for Artisan commands, etc.
+- `tests/Unit`: tests for individual classes aligned with `app/` namespaces; strict isolation is not required (using database or involving related classes is acceptable).
+- `tests/External`: tests real interactions with external services (no mocking), organized by provider or domain.
 
-In most cases, start with `Feature` tests. Use `Unit` tests when you need to validate complex underlying logic in individual classes. Reserve `External` tests for checks on third-party services that cannot or should not be mocked.
+If unsure, always start with `Feature` tests and work inward toward `Unit` tests as complexity grows.
 
-Running `composer test` executes only the `Unit` and `Feature` suites. To run the external tests, use `composer test:external`.
+Do not place unmocked external integration checks in `Feature` or `Unit`; keep them in `tests/External`.
 
 Test descriptions should follow the pattern: `<verb> <observable outcome> [when <condition>] [for <actor>]`.
 
 ## Additional Folders
 
-Not strictly Laravel-official, but enforced in the starter kit as common practices in the Laravel community:
+Not strictly Laravel-official, but adopted as common practices in the community:
 
 - `app/Actions`: invokable classes for encapsulating business logic.
-- `app/Data`: data transfer objects (DTOs) for encapsulating data.
+- `app/Data`: data transfer objects (DTOs).
 - `app/Enums`: self-explanatory.
 - `app/Services`: for calling external services.
 

@@ -5,40 +5,31 @@ description: "Apply these rules when creating or editing Laravel migrations, esp
 
 # Laravel Database Migrations
 
-## When to Apply
-
-- Creating or editing migrations.
-- Adding or changing foreign keys.
-
 ## Migrations
 
-Migrations must **only** define the `up` method. Do not write a `down` method. If you see a `down` method in a migration, you should remove it.
+Define only the `up` method — omit `down` entirely, including default scaffolding.
 
-Migrations should focus primarily on schema changes. Simple data manipulations directly required by structural changes—such as copying or reformatting column values—may be included. But do not use migrations for application data seeding or complex data operations; handle those via dedicated one-off console commands.
+Migrations are for schema changes only. Simple data manipulations tied to those changes (adjusting data for new columns/formats) are acceptable. Never seed application data or run business logic in migrations — use dedicated one-off console commands.
 
 ## Foreign Key Delete Policy
 
-All foreign keys must **explicitly** use either `nullOnDelete`, `cascadeOnDelete` or `restrictOnDelete` in the declaration.
-
-Follow these rules when defining foreign keys:
+All foreign keys MUST explicitly declare `nullOnDelete`, `cascadeOnDelete`, or `restrictOnDelete`.
 
 **Many-to-Many (pivot tables)**
-Always use `cascadeOnDelete()`.
+Always `cascadeOnDelete()`.
 
 **Owned children (composition)**
-If the child is logically inseparable from the parent and has no independent meaning, use `cascadeOnDelete()`.
+Child is inseparable from parent, no independent meaning → `cascadeOnDelete()`.
 
-**Optional references (nullable foreign keys)**
-If the relationship is descriptive, attribution-based, or non-owning, use `nullOnDelete()`.
-Applies to: `*_by`, `assigned_to`, `owner_id`, `parent_id` (by default), `last_*_id`.
+**Optional references (nullable FKs)**
+Descriptive, attribution-based, or non-owning relationships → `nullOnDelete()`.
+Applies to: `*_by`, `assigned_to`, `owner_id`, `parent_id` (default), `last_*_id`.
 
 **Business-critical or historical records**
-If the child contains financial, audit, security, legal, or core historical data, use `restrictOnDelete()` (or soft deletes).
+Financial, audit, security, legal, or historical data → `restrictOnDelete()` (or soft deletes).
 
 **Shared or polymorphic resources**
-If a child may be referenced by multiple parents, never use `cascadeOnDelete()`.
+Referenced by multiple parents → never `cascadeOnDelete()`.
 
 **Tie-breaker**
-Prefer `cascadeOnDelete()` for owned data.
-Prefer `nullOnDelete()` for references.
-Use `restrictOnDelete()` only with a clear business reason.
+Owned data → `cascadeOnDelete()`. References → `nullOnDelete()`. Use `restrictOnDelete()` only with a clear business reason.
