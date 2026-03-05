@@ -4,6 +4,8 @@
 
 Start with a failing test, then implement code to make it pass.
 
+Avoid mocks unless the dependency is a network call, filesystem, or prohibitively slow. Prefer real instances.
+
 ## Test Suites
 
 - `tests/Feature`: default. Test from the outside in by calling endpoints. Organize in subfolders by interface: `Web`, `Api`, `Mcp`, `Console`, etc.
