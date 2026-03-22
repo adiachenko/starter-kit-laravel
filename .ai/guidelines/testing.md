@@ -4,7 +4,7 @@
 
 Start with a failing test, then implement code to make it pass.
 
-Avoid mocks unless the dependency is a network call, filesystem, or prohibitively slow. Prefer real instances.
+Avoid mocks unless the dependency is external I/O or prohibitively slow. Prefer real instances.
 
 ## Test Suites
 

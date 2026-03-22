@@ -3,7 +3,7 @@
 ## General
 
 - Prefer guard clauses and straight-line control flow; keep nesting shallow.
-- Avoid boolean flags — prefer distinct methods or separate functions.
+- Avoid boolean flags when behavior can be split into distinct methods or functions.
 - Favor Laravel collection methods (map/filter/reduce) over loops; use loops only for early exits or stateful logic.
 - MUST NOT use `final`.
 - All class properties, method parameters, and return types MUST have type declarations.
