@@ -5,8 +5,9 @@
 - PHP `>=8.4` baseline with `declare(strict_types=1)` enforced by Pint.
 - The default boilerplate is lean and backend/API-friendly rather than frontend-scaffold-heavy.
 - `AppServiceProvider` comes preconfigured with useful safeguards like immutable dates and stricter Eloquent.
-- Models are unguarded by default because we trust our validation more than our patience to keep `$fillable` in sync.
+- Models are unguarded by default because policing request input is not their job.
 - Tooling is already wired: Pest (parallel tests), PHPStan + Larastan at max level, and Rector for refactors.
+- Tinker is intentionally kept in `require-dev`, not production dependencies, as a safer default.
 - Improved testing setup with clear conventions and a dedicated suite for external dependencies.
 - Laravel Boost configuration prompts are included during setup, and sensible `.gitignore` rules for Boost are preconfigured. Comes bundled with .ai directory as a starting point for your own AI overrides.
 - SQLite is set as the default database, offering a clean, minimal starting point that you can easily customize for your preferred database setup.
