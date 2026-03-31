@@ -4,11 +4,12 @@
 
 - Prefer guard clauses and straight-line control flow; keep nesting shallow.
 - Avoid boolean flags when behavior can be split into distinct methods or functions.
-- Favor Laravel collection methods (map/filter/reduce) over loops; use loops only for early exits or stateful logic.
+- Favor Laravel collection methods when they are at least as clear as the equivalent loop.
 - MUST NOT use `final`.
 - All class properties, method parameters, and return types MUST have type declarations.
 - Use docblocks only to expand on complex types (arrays, collections) or when a description adds context beyond the signature.
 - Prefer string interpolation over `sprintf()` or `.` concatenation. Use concatenation for multi-line or complex strings when it improves readability.
+- Use `$var` instead of `{$var}` in interpolated strings unless required for disambiguation.
 
 ## Method Complexity
 
