@@ -78,7 +78,7 @@ Not strictly Laravel-official, but adopted as common practices in the community:
 - `app/Enums`: self-explanatory.
 - `app/Services`: for calling external services.
 
-## PhpStorm Setup
+## PhpStorm Setup (Optional)
 
 Recommended setup for consistent formatting:
 
@@ -88,6 +88,10 @@ Recommended setup for consistent formatting:
 - `Settings | Tools | Actions on Save`: enable reformat on save
 - `Settings | Languages & Frameworks | JavaScript | Prettier`: use automatic config, enable "Run on save", and prefer Prettier config. Include `md` in Prettier file extensions.
 
-## VSCode/Cursor Setup
+## VSCode/Cursor Setup (Optional)
 
 VSCode and Cursor will automatically detect formatting settings defined in the `.vscode/` folder – no additional setup is needed beyond installing the suggested extensions.
+
+### Zed Setup (Optional)
+
+This project does not treat Zed as an officially supported editor, but you may [download suggested config files from this Gist](https://gist.github.com/adiachenko/57feb8fb900453b33881e622e8152b67).
